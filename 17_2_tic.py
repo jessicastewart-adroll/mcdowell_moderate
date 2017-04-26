@@ -7,7 +7,7 @@ def has_winner(board):
     start = 0
     next = 1
     while next < size:
-      if board[row][start] != board[row][next]:
+      if board[row][start] != None and board[row][start] != board[row][next]:
         break
       if next == size-1:
         return True
@@ -20,7 +20,7 @@ def has_winner(board):
     start = 0
     next = 1
     while next < size:
-      if board[start][column] != board[next][column]:
+      if board[row][start] != None and board[start][column] != board[next][column]:
         break
       if next == size-1:
         return True
@@ -31,7 +31,7 @@ def has_winner(board):
   start = board[0][0]
   next = 1
   while next < size:
-    if board[next][next] != start:
+    if board[row][start] != None and board[next][next] != start:
       break
     if next == size-1:
       return True
@@ -45,7 +45,7 @@ def has_winner(board):
   while i >= 0:
     i = i+next[0]
     j = j+next[1]
-    if board[i][j] != start:
+    if board[row][start] != None and board[i][j] != start:
       break
     if j == size-1:
       return True

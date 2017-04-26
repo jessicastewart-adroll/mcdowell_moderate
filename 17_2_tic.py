@@ -1,3 +1,19 @@
+def dfs(board, i, j, count):
+  size = len(board)
+  if i >= size or j >= size or not board[i][j]:
+    return count
+  else:  
+    dfs(board, i+1, j, count+1)
+    dfs(board, i, j+1, count+1)
+    dfs(board, i+1, j+1, count+1)
+  
+def has_winner(board):
+  size = len(board)
+  i = 0
+  j = 0
+  while j < size:
+    dfs(board, i, j, 0)
+
 # big 0 -> n*n + n*n + 2n
 # n = size of board
 def has_winner(board):

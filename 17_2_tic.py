@@ -1,3 +1,5 @@
+# big 0 -> n*n + n*n + 2n
+# n = size of board
 def has_winner(board):
   size = len(board)
   

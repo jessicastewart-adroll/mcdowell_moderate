@@ -8,10 +8,8 @@ def has_winner(board):
     next = 1
     while next < size:
       if board[row][start] == None or board[row][start] != board[row][next]:
-        row = size
         break
       if next == size-1:
-        print('row')
         return True
       next += 1
     row += 1  
@@ -22,8 +20,7 @@ def has_winner(board):
     start = 0
     next = 1
     while next < size:
-      if board[next][start] == None or board[start][column] != board[next][column]:
-        next = size
+      if board[start][column] == None or board[start][column] != board[next][column]:
         break
       if next == size-1:
         return True
@@ -60,3 +57,33 @@ test_one = [[None, None, None],
 [None, None, None],
 [None, None, None]]
 print(has_winner(test_one))
+
+test_two = [[1, None, 1],
+[None, None, None],
+[None, None, 1]]
+print(has_winner(test_two))
+
+test_three = [[1, None, None],
+[1, None, 1],
+[None, None, None]]
+print(has_winner(test_three))
+
+test_four = [[None, None, None],
+[0, 0, 0],
+[None, None, None]]
+print(has_winner(test_four))
+
+test_five = [[None, None, 0],
+[None, None, 0],
+[None, None, 0]]
+print(has_winner(test_five))
+
+test_six = [[None, None, 0],
+[None, 0, None],
+[0, None, None]]
+print(has_winner(test_six))
+
+test_seven = [[1, None, None],
+[None, 1, None],
+[None, None, 1]]
+print(has_winner(test_seven))

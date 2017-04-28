@@ -1,18 +1,10 @@
-### aggregates in every direction
+graph = [
+[0, None, 1],
+[0, 0, None],
+[1, None, 1]
+]
 
-def get_neighbors(graph, node):
-	neighbors = []
-	size = len(graph)
-	moves = [(1, 0), (0, 1), (1, 1), (-1, 1)]
-	for move in moves:
-		neighbor = (move[0] + node[0], move[1] + node[1], node[2] + 1)
-		if neighbor[0] >=0 and neighbor[1] >= 0 and neighbor[0] < size and neighbor[1] < size:
-			if graph[node[0]][node[1]] == graph[neighbor[0]][neighbor[1]]:
-				neighbors.append(neighbor)
-	print(neighbors)
-	return neighbors
-
-def dfs(graph, start):
+def dfs(graph, start, direction):
 	size = len(graph)
 	stack = [start]
 
@@ -20,21 +12,34 @@ def dfs(graph, start):
 		node = stack.pop()
 		if node[2] == size:
 			return True
+		next_node = (direction[0] + node[0], direction[1] + node[1], node[2] + 1)
+		if next_node[0] >= 0 and next_node[0] < size and next_node[1] >= 0 and next_node[1] < size:
+			if graph[next_node[0]][next_node[1]] == graph[node[0]][node[1]]:
+				stack.append(next_node)
 
-		for neighbor in get_neighbors(graph, node):
-			stack.append((neighbor))
+	return False
 
 
+	# from start, is there a win?
 def has_winner(graph):
-	pass
+	size = len(graph)
+	starts = [(0, 0, 1)]
+	i = 1
+	while i < size:
+		starts.extend([(0, i, 1), (i, 0, 1)])
+		i += 1
 
-graph = [
-[0, None, 1],
-[0, None, None],
-[1, 0, 0]
-]
 
-get_neighbors(graph, (1, 0, 2))
+	for start in starts:
+		if graph[start[0]][start[1]] != None:
+			directions = [(1, 0), (0, 1), (1, 1), (-1, 1)]
+			for direction in directions:
+				if dfs(graph, start, direction):
+					return True
+
+	return False
+
+print(has_winner(graph))
 
 ################################
 

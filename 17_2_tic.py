@@ -1,3 +1,5 @@
+### aggregates in every direction
+
 def get_neighbors(graph, node):
 	neighbors = []
 	size = len(graph)
@@ -7,7 +9,7 @@ def get_neighbors(graph, node):
 		if neighbor[0] >=0 and neighbor[1] >= 0 and neighbor[0] < size and neighbor[1] < size:
 			if graph[node[0]][node[1]] == graph[neighbor[0]][neighbor[1]]:
 				neighbors.append(neighbor)
-
+	print(neighbors)
 	return neighbors
 
 def dfs(graph, start):
@@ -17,7 +19,6 @@ def dfs(graph, start):
 	while stack:
 		node = stack.pop()
 		if node[2] == size:
-			print(node)
 			return True
 
 		for neighbor in get_neighbors(graph, node):
@@ -33,7 +34,7 @@ graph = [
 [1, 0, 0]
 ]
 
-print(dfs(graph, (0, 0, 1)))
+get_neighbors(graph, (1, 0, 2))
 
 ################################
 

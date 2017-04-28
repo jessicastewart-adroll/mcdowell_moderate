@@ -1,3 +1,42 @@
+def get_neighbors(graph, node):
+	neighbors = []
+	size = len(graph)
+	moves = [(1, 0), (0, 1), (1, 1), (-1, 1)]
+	for move in moves:
+		neighbor = (move[0] + node[0], move[1] + node[1], node[2] + 1)
+		if neighbor[0] >=0 and neighbor[1] >= 0 and neighbor[0] < size and neighbor[1] < size:
+			if graph[node[0]][node[1]] == graph[neighbor[0]][neighbor[1]]:
+				neighbors.append(neighbor)
+
+	return neighbors
+
+def dfs(graph, start):
+	size = len(graph)
+	stack = [start]
+
+	while stack:
+		node = stack.pop()
+		if node[2] == size:
+			print(node)
+			return True
+
+		for neighbor in get_neighbors(graph, node):
+			stack.append((neighbor))
+
+
+def has_winner(graph):
+	pass
+
+graph = [
+[0, None, 1],
+[0, None, None],
+[1, 0, 0]
+]
+
+print(dfs(graph, (0, 0, 1)))
+
+################################
+
 def dfs(board, i, j, count):
   size = len(board)
   if i >= size or j >= size or not board[i][j]:

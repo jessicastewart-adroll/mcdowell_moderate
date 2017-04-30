@@ -31,7 +31,7 @@ None,
 'Ninety']
 
 
-def handle_triple(digit):
+def handle_triplet(digit):
 	result = []
 	if len(digit) == 3:
 		if int(digit[0]) != 0:
@@ -56,26 +56,30 @@ def handle_triple(digit):
 	return result
 
 def convert_to_English(integer):
+	if integer == 0:
+		print('Zero')
+		return
+
 	digits = str(integer)
 	result = []
 
 	if len(digits) > 6:
-		r = handle_triple(digits[:-6])
+		r = handle_triplet(digits[:-6])
 		if r:
 			result.extend(r)
 			result.append('Million')
 		digits = digits[-6:]
 
 	if len(digits) > 3:
-		r = handle_triple(digits[:-6])
+		r = handle_triplet(digits[:-3])
 		if r:
 			result.extend(r)
 			result.append('Thousand')
 		digits = digits[-3:]	
 
-	if len(digits) > 1:
-		result.extend((handle_triple(digits)))
+	if len(digits) >= 1:
+		result.extend((handle_triplet(digits)))
 
 	print(' '.join(result))
 
-convert_to_English(689070001)
+convert_to_English(0)

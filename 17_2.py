@@ -1,34 +1,28 @@
-# big O: size**2 time, 2(size*2+2) space
-def increment_scores(scores, x, y, size):
-	scores[x] += 1
-	scores[size+y] += 1
+# big O: size**2 time, size*2+2 space
+def increment_scores(scores, x, y, size, player):
+	scores[x] += player
+	scores[size+y] += player
 	if x == y:
-		scores[-2] += 1
+		scores[-2] += player
 	if size - 1 - x == y:
-		scores[-1] += 1
+		scores[-1] += player
 
 def has_winner(board, player_one, player_two):
 	size = len(board)
 	column = 0
-	scores_player_one = [0]*(size*2+2)
-	scores_player_two = [0]*(size*2+2)
+	scores = [0]*(size*2+2)
 
 	while column < size:
 		row = 0
 		while row < size:
 			if board[column][row] == player_one:
-				increment_scores(scores_player_one, row, column, size)
+				increment_scores(scores, row, column, size, 1)
 			elif board[column][row] == player_two:
-				increment_scores(scores_player_two, row, column, size)
+				increment_scores(scores, row, column, size, -1)
 			row += 1
 		column += 1
 
-	print(scores_player_one)
-	print(scores_player_two)
-	if max(scores_player_one) == size or max(scores_player_two) == size:
-		return True
-	else:
-		return False
+	return max(scores) == size or abs(min(scores)) == size
 
 test_one = [
 [0, None, 0],

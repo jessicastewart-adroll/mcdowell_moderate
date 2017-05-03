@@ -5,28 +5,27 @@ class MasterMind(object):
 	GUESS_LENGTH = 4
 
 	def __init__(self):
-		self.result = {
-			'hits': 0,
-			'pseudo-hits': 0
-			}
-		self.pseudo_guess_candidates = list()
-		self.pseudo_solution_candidates = list()
-		self.solution = MasterMind.generate_solution()
+		self.solution = None
 
-	@classmethod
-	def generate_solution(cls):
-		solution = list()
+	def generate_solution(self):
+		solution = []
 
 		i = 0
-		while i < cls.GUESS_LENGTH:
-			random_num = random.randint(0, cls.GUESS_LENGTH-1)
-			solution.append(cls.COLORS[random_num])
+		while i < MasterMind.GUESS_LENGTH:
+			random_num = random.randint(0, MasterMind.GUESS_LENGTH-1)
+			solution.append(MasterMind.COLORS[random_num])
 			i += 1 
 
-		return solution
+		self.solution = solution
 
-	def master_mind(self, guess):
-		print(self.solution)
+	def guess(self, guess):
+		result = {
+			'hits': 0,
+			'pseudo-hits': 0
+		}
+		pseudo_candidates = []
+		solution_candidates = []
+
 		if len(guess) != MasterMind.GUESS_LENGTH:
 			return
 
@@ -36,26 +35,24 @@ class MasterMind(object):
 		i = 0
 		while i < MasterMind.GUESS_LENGTH:
 			if guess[i] == self.solution[i]:
-				self.result['hits'] += 1
+				result['hits'] += 1
 			else:
-				self.pseudo_guess_candidates.append(guess[i])
-				self.pseudo_solution_candidates.append(guess[i])
+				pseudo_candidates.append(guess[i])
+				solution_candidates.append(self.solution[i])
 			i += 1
 
-		for char in self.pseudo_guess_candidates:
-			if char in self.pseudo_solution_candidates:
-				self.result['pseudo-hits'] += 1
+		for char in pseudo_candidates:
+			if char in solution_candidates:
+				result['pseudo-hits'] += 1
 
-		return self.result
+		return result
 
 
 	
 mm_1 = MasterMind()
-print(mm_1.master_mind('RGGB'))
-# 'YRGB'
-# hit: 2 pseudo: 1
+mm_1.generate_solution()
+print(mm_1.guess('RGGB'))
 
 mm_2= MasterMind()
-print(mm_2.master_mind('RGBY'))
-# 'GGRR'
-# hit: 1, pseudo: 1
+mm_2.generate_solution()
+print(mm_2.guess('RGBY'))

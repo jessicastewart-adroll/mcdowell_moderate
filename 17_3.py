@@ -1,24 +1,20 @@
-def fib(num, cache):
-	if num <= 2:
-		return cache[num]
+def factorial_zeros(number):
+	if number <= 0:
+		return 0
 
-	if not cache.get(num):
-		cache[num] = fib(num-1, cache) + fib(num-2, cache)
+	factorial = 1
+	i = 1
+	while i <= number:
+		factorial *= i
+		i += 1
 
-	return cache[num]
+	zeros = 0
+	while not factorial%10:
+		zeros += 1
+		factorial /= 10
 
-def fib_trailing_zeros(num):
-	cache = {
-		0: 0,
-		1: 1,
-		2: 1
-	}
-	fib_num = fib(num, cache)
-	count = 0
+	return zeros
 
-	while not fib_num % 10:
-		count += 1
-		fib_num /= 10
-	return count
-
-fib_trailing_zeros(60)
+print(factorial_zeros(20))
+print(factorial_zeros(4))
+print(factorial_zeros(10))

@@ -1,3 +1,6 @@
+## pseudo-hits can only be used once
+## frequency table
+
 import random
 
 class MasterMind(object):
